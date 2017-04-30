@@ -30,6 +30,7 @@ module.exports = (args) => {
       amt,
       wss
     }, (error, response) => {
+      console.log('ERROR: ', error)
       if (error) { return res.status(500).send({ error }) }
 
       return res.json(response)

@@ -17,7 +17,6 @@ const lndGrpcInterface = require('./libs/lnd_grpc_interface');
 const historyRouter = require('./routers/history');
 const invoicesRouter = require('./routers/invoices');
 const networkInfoRouter = require('./routers/network_info');
-const paymentsRouter = require('./routers/payments');
 const payReqRouter = require('./routers/payment_request');
 const peersRouter = require('./routers/peers');
 const purchasedRouter = require('./routers/purchased');

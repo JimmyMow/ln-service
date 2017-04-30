@@ -36,12 +36,13 @@ module.exports = (args, cbk) => {
     amt
   },
   (err, res) => {
+    console.log('error!: ', err)
     if (!!err) { return cbk([500, 'Send payment err', err]); }
 
     const transaction = {
       confirmed: true,
       fee: parseInt(res.payment_route.total_fees),
-      hops: res.payment_route.hops.length,
+      hops: res.payment_route.hops,
       id: createHash('sha256').update(res.payment_preimage).digest('hex'),
       outgoing: true,
       tokens: parseInt(res.payment_route.total_amt),
