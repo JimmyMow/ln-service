@@ -7,6 +7,7 @@ const sendPayment = require('./../libs/send_payment');
 
   {
     lnd_grpc_api: <LND API>
+    wss: <Websocket Server>
   }
 
   @returns
@@ -21,18 +22,19 @@ module.exports = (args) => {
 
   router.post('/', (req, res, next) => {
     const { dest_string, amt } = req.body
-    const { lnd_grpc_api } = args
+    const { lnd_grpc_api, wss } = args
 
     return sendPayment({
       lnd_grpc_api,
       dest_string,
-      amt
+      amt,
+      wss
     }, (error, response) => {
       if (error) { return res.status(500).send({ error }) }
 
       return res.json(response)
     })
-  });
+  })
 
   return router;
 };
