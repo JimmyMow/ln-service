@@ -18,6 +18,7 @@ const peersRouter = require('./routers/peers');
 const purchasedRouter = require('./routers/purchased');
 const transactionsRouter = require('./routers/transactions');
 const walletInfoRouter = require('./routers/wallet_info');
+const paymentsRouter = require('./routers/payments');
 
 const lndGrpcHost = 'localhost:10009';
 const logFormat = ':method :url :status - :response-time ms - :user-agent';
@@ -49,6 +50,7 @@ app.use('/v0/purchased', purchasedRouter({lnd_grpc_api: lndGrpcApi}));
 app.use('/v0/payment_request', payReqRouter({lnd_grpc_api: lndGrpcApi}));
 app.use('/v0/transactions', transactionsRouter({lnd_grpc_api: lndGrpcApi}));
 app.use('/v0/wallet_info', walletInfoRouter({lnd_grpc_api: lndGrpcApi}));
+app.use('/v0/payments', paymentsRouter({lnd_grpc_api: lndGrpcApi}));
 
 if (process.env.NODE_ENV !== 'production') {
   walnut.check(require('./package'));

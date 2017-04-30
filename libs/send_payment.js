@@ -6,17 +6,19 @@
   }
 */
 module.exports = (args, cbk) => {
-  if (!args.lnd_grpc_api || !args.payment_request) {
-    return cbk([500, 'Missing lnd grpc api or payment request', args]);
+  if (!args.lnd_grpc_api) {
+    console.log('here??')
+    return cbk([500, 'Missing lnd grpc api', args]);
   }
 
+  const { dest_string, amt } = args
   return args.lnd_grpc_api.sendPaymentSync({
-    payment_request: args.payment_request,
+    dest_string,
+    amt
   },
   (err, response) => {
-    if (!!err) { return cbk([500, 'Send payment error', err]); }
-
-    return cbk();
+    if (!!err) { return cbk(err, null); }
+    return cbk(null, response)
   });
 };
 

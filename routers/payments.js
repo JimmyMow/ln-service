@@ -20,11 +20,18 @@ module.exports = (args) => {
   const router = ExpressRouter({caseSensitive: true, strict: true});
 
   router.post('/', (req, res, next) => {
+    const { dest_string, amt } = req.body
+    const { lnd_grpc_api } = args
+
     return sendPayment({
-      lnd_grpc_api: args.lnd_grpc_api,
-      payment_request: req.body.payment_request,
-    },
-    returnJson({res}));
+      lnd_grpc_api,
+      dest_string,
+      amt
+    }, (error, response) => {
+      if (error) { return res.status(500).send({ error }) }
+
+      return res.json(response)
+    })
   });
 
   return router;
