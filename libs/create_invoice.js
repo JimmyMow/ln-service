@@ -34,6 +34,7 @@ module.exports = (args, cbk) => {
     }
 
     console.log("ADD INVOICE", response.r_hash.toString('hex'));
+    console.log('response: ', response)
 
     return cbk(null, {
       id: response.r_hash.toString('hex'),

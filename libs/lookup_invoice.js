@@ -33,9 +33,23 @@ module.exports = (args, cbk) => {
       return cbk([500, 'Missing settled', response]);
     }
 
+    console.log('response: ', response)
+    const {
+      memo,
+      settled,
+      value,
+      creation_date,
+      settle_date,
+      payment_request
+    } = response
+
     return cbk(null, {
-      memo: response.memo,
-      settled: response.settled,
+      memo,
+      settled,
+      value,
+      creation_date,
+      settle_date,
+      payment_request,
       type: rowTypes.channel_transaction,
     });
   });
